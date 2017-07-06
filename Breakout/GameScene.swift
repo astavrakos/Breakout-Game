@@ -47,19 +47,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
+    func brickHit(brick: SKSpriteNode)
+    {
+        if(brick.color == UIColor.red)
+        {
+        brick.removeFromParent()
+        }
+        else if brick.color == UIColor.orange
+        {
+            brick.color = UIColor.yellow
+        }
+        else
+        {
+            brick.color = UIColor.orange
+        }
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         if contact.bodyA.node?.name?.range(of:"brick") != nil || contact.bodyB.node?.name?.range(of:"brick") != nil
         {
             print("You win!")
             if(ball == contact.bodyA)
             {
-                contact.bodyB.node!.removeFromParent()
+                brickHit(brick: contact.bodyB.node! as! SKSpriteNode)
+                
             }
             else
             {
-                contact.bodyA.node!.removeFromParent()
+                brickHit(brick: contact.bodyA.node! as! SKSpriteNode)
             }
         }
+        
         if contact.bodyA.node?.name == "loseZone" || contact.bodyB.node?.name == "loseZone"
         {
             print("You lose!")
