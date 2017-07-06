@@ -63,7 +63,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
-    func didBegin(_ contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact)
+    {
         if contact.bodyA.node?.name?.range(of:"brick") != nil || contact.bodyB.node?.name?.range(of:"brick") != nil
         {
             print("You win!")
@@ -80,8 +81,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if contact.bodyA.node?.name == "loseZone" || contact.bodyB.node?.name == "loseZone"
         {
-            print("You lose!")
-            ball.removeFromParent()
+            //make alert
+//            let alert = UIAlertController(coder: "Game Over"), message: nil, preferredStyle: .alert)
+//            let alertAction = UIAlertAction(title: "Reset", style: .default) { (action) in
+//                reset()
+//            }
+//            alert.addAction(alertAction)
+//            present(alert, animated: true, completion: nil)
+           ball.removeFromParent()
         }
     }
     
@@ -99,8 +106,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             let moveLoop = SKAction.sequence([moveDown, moveReset])
             let moveForever = SKAction.repeatForever(moveLoop)
             starsBackground.run(moveForever)
-            
         }
+    }
+    
+    func reset()
+    {
+        numBricks = 0
+        ball.removeFromParent()
+        paddle.removeFromParent()
+        loseZone.removeFromParent()
+        bricks = [SKSpriteNode]()
+        layBricks()
+        makeBall()
+        makePaddle()
+        makeLoseZone()
     }
     
     func makeBall()

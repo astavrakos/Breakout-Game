@@ -17,6 +17,8 @@
 		63C3BA401F0E847900AC2B8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63C3BA3E1F0E847900AC2B8C /* LaunchScreen.storyboard */; };
 		63C3BA4B1F0E847900AC2B8C /* BreakoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3BA4A1F0E847900AC2B8C /* BreakoutTests.swift */; };
 		63C3BA561F0E847900AC2B8C /* BreakoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3BA551F0E847900AC2B8C /* BreakoutUITests.swift */; };
+		63C3BA651F0EEEB900AC2B8C /* arcadepix in Resources */ = {isa = PBXBuildFile; fileRef = 63C3BA641F0EEEB900AC2B8C /* arcadepix */; };
+		63C3BA671F0EF52500AC2B8C /* ARCADEPI.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 63C3BA661F0EF52500AC2B8C /* ARCADEPI.TTF */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		63C3BA511F0E847900AC2B8C /* BreakoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreakoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63C3BA551F0E847900AC2B8C /* BreakoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakoutUITests.swift; sourceTree = "<group>"; };
 		63C3BA571F0E847900AC2B8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63C3BA641F0EEEB900AC2B8C /* arcadepix */ = {isa = PBXFileReference; lastKnownFileType = folder; path = arcadepix; sourceTree = "<group>"; };
+		63C3BA661F0EF52500AC2B8C /* ARCADEPI.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = ARCADEPI.TTF; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 		63C3BA231F0E847900AC2B8C = {
 			isa = PBXGroup;
 			children = (
+				63C3BA661F0EF52500AC2B8C /* ARCADEPI.TTF */,
 				63C3BA2E1F0E847900AC2B8C /* Breakout */,
 				63C3BA491F0E847900AC2B8C /* BreakoutTests */,
 				63C3BA541F0E847900AC2B8C /* BreakoutUITests */,
@@ -103,6 +108,7 @@
 		63C3BA2E1F0E847900AC2B8C /* Breakout */ = {
 			isa = PBXGroup;
 			children = (
+				63C3BA641F0EEEB900AC2B8C /* arcadepix */,
 				63C3BA2F1F0E847900AC2B8C /* AppDelegate.swift */,
 				63C3BA311F0E847900AC2B8C /* GameScene.sks */,
 				63C3BA331F0E847900AC2B8C /* Actions.sks */,
@@ -245,7 +251,9 @@
 				63C3BA321F0E847900AC2B8C /* GameScene.sks in Resources */,
 				63C3BA3D1F0E847900AC2B8C /* Assets.xcassets in Resources */,
 				63C3BA401F0E847900AC2B8C /* LaunchScreen.storyboard in Resources */,
+				63C3BA651F0EEEB900AC2B8C /* arcadepix in Resources */,
 				63C3BA341F0E847900AC2B8C /* Actions.sks in Resources */,
+				63C3BA671F0EF52500AC2B8C /* ARCADEPI.TTF in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

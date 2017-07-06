@@ -1,14 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F2104" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zlW-Sg-13J">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="ARCADEPI.TTF">
+            <string>Arcadepix</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="Breakout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8aa-yV-Osq"/>
                         <viewControllerLayoutGuide type="bottom" id="qHh-Mt-9TT"/>
@@ -22,5 +31,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="ssH-yV-JDm">
+            <objects>
+                <viewController id="zlW-Sg-13J" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dxt-J0-NZw"/>
+                        <viewControllerLayoutGuide type="bottom" id="9bq-at-Vvq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VUp-qd-kok">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stars" translatesAutoresizingMaskIntoConstraints="NO" id="k5J-2f-s5K">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BREAKOUT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGi-8d-dFA">
+                                <rect key="frame" x="0.0" y="20" width="375" height="99"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="kkW-bk-2i2"/>
+                                    <constraint firstAttribute="height" constant="99" id="z7S-yf-lpH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Arcadepix" family="Arcadepix" pointSize="49"/>
+                                <color key="textColor" red="0.99689644575119019" green="0.99193030595779419" blue="0.99627715349197388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7M6-gl-RbW">
+                                <rect key="frame" x="117" y="314" width="150" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="5zI-5G-l8w"/>
+                                    <constraint firstAttribute="height" constant="38" id="YV6-cf-oqE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Arcadepix" family="Arcadepix" pointSize="26"/>
+                                <state key="normal" title="START">
+                                    <color key="titleColor" red="0.99689644575119019" green="0.99193030595779419" blue="0.99627715349197388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="show" id="xbM-2W-BrX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CGi-8d-dFA" firstAttribute="centerX" secondItem="VUp-qd-kok" secondAttribute="centerX" id="Jgj-Fo-19A"/>
+                            <constraint firstItem="9bq-at-Vvq" firstAttribute="top" secondItem="k5J-2f-s5K" secondAttribute="bottom" id="R9L-OE-ig2"/>
+                            <constraint firstItem="k5J-2f-s5K" firstAttribute="leading" secondItem="VUp-qd-kok" secondAttribute="leading" id="Sx3-3Z-c4J"/>
+                            <constraint firstItem="CGi-8d-dFA" firstAttribute="centerY" secondItem="VUp-qd-kok" secondAttribute="centerY" constant="-264" id="Vgt-d8-Q3K"/>
+                            <constraint firstItem="7M6-gl-RbW" firstAttribute="centerX" secondItem="VUp-qd-kok" secondAttribute="centerX" constant="4.5" id="eRs-OJ-V07"/>
+                            <constraint firstItem="k5J-2f-s5K" firstAttribute="top" secondItem="VUp-qd-kok" secondAttribute="top" id="hbk-pm-bJW"/>
+                            <constraint firstItem="7M6-gl-RbW" firstAttribute="centerY" secondItem="VUp-qd-kok" secondAttribute="centerY" id="pMn-c9-sId"/>
+                            <constraint firstAttribute="trailing" secondItem="k5J-2f-s5K" secondAttribute="trailing" id="x8l-bZ-yf9"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OEf-3q-caw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-794.39999999999998" y="36.431784107946029"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="stars" width="589" height="1024"/>
+    </resources>
 </document>
