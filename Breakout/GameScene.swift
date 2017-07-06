@@ -13,8 +13,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
 {
     var ball = SKShapeNode()
     var paddle = SKSpriteNode()
-    var brick = SKSpriteNode()
     var loseZone = SKSpriteNode()
+    var bricks = [SKSpriteNode]()
+    var numBricks = 0
+    
     
     override func didMove(to view: SKView)
     {
@@ -23,10 +25,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createBackground()
         makeBall()
         makePaddle()
-        makeBrick()
+        layBricks()
         makeLoseZone()
         ball.physicsBody?.isDynamic = true
-        ball.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 5))
+        ball.physicsBody?.applyImpulse(CGVector(dx: -4, dy: 5))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,11 +48,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name == "brick"
+        if contact.bodyA.node?.name?.range(of:"brick") != nil || contact.bodyB.node?.name?.range(of:"brick") != nil
         {
             print("You win!")
-            brick.removeFromParent()
-            ball.removeFromParent()
+            if(ball == contact.bodyA)
+            {
+                contact.bodyB.node!.removeFromParent()
+            }
+            else
+            {
+                contact.bodyA.node!.removeFromParent()
+            }
         }
         if contact.bodyA.node?.name == "loseZone" || contact.bodyB.node?.name == "loseZone"
         {
@@ -92,7 +100,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         //use precise collision detection
         ball.physicsBody?.usesPreciseCollisionDetection = true
         //no loss of energy from friction
-        ball.physicsBody?.friction = 10
+        ball.physicsBody?.friction = 0
         //gravity is not a factor
         ball.physicsBody?.affectedByGravity = false
         //bounces fully off of other objects
@@ -114,14 +122,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(paddle)
     }
     
-    func makeBrick()
+    func makeBrick(x: CGFloat, y: CGFloat, color: UIColor, w: CGFloat, h: CGFloat)
     {
-        brick = SKSpriteNode(color: UIColor.blue, size: CGSize(width: 50, height: 20))
-        brick.position = CGPoint(x: frame.midX, y: frame.maxY  - 30)
-        brick.name = "brick"
+        var brick = SKSpriteNode()
+        bricks.append(brick)
+        brick = SKSpriteNode(color: color, size: CGSize(width: w, height: h))
+        brick.position = CGPoint(x: x, y: y)
+        brick.name = "brick+\(numBricks)"
+        numBricks += 1
         brick.physicsBody = SKPhysicsBody(rectangleOf: brick.size)
         brick.physicsBody?.isDynamic = false
         addChild(brick)
+    }
+    
+    func layBricks()
+    {
+        let numWide = CGFloat(6)
+        let brickWidth = frame.width/numWide - 5/numWide - 5
+        let brickHeight = CGFloat(20)
+        for row in 1...3
+        {
+            var color = UIColor()
+            switch row
+            {
+            case 1:
+                color = UIColor.yellow
+            case 2:
+                color = UIColor.orange
+            default:
+                color = UIColor.red
+            }
+           for col in 1...Int(numWide)
+           {
+            makeBrick(x: frame.minX+(brickWidth+CGFloat(5))*CGFloat(col)-brickWidth/2, y: frame.maxY-(brickHeight+CGFloat(5))*CGFloat(row)-brickHeight/2, color: color, w: brickWidth, h: brickHeight)
+            }
+        }
     }
     
     func makeLoseZone()
