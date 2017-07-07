@@ -15,6 +15,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var paddle = SKSpriteNode()
     var loseZone = SKSpriteNode()
     var bricks = [SKSpriteNode]()
+    let gameOver = SKLabelNode(fontNamed: "arcadepix")
+    let levelLabel = SKLabelNode(fontNamed: "arcadepix")
+    var levels = 3
     var numBricks = 0
     
     
@@ -27,6 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         makePaddle()
         layBricks()
         makeLoseZone()
+        makeLevelCounter()
         ball.physicsBody?.isDynamic = true
         ball.physicsBody?.applyImpulse(CGVector(dx: -4, dy: 5))
     }
@@ -55,7 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         else if brick.color == UIColor.orange
         {
-            brick.color = UIColor.yellow
+            brick.color = UIColor.red
         }
         else
         {
@@ -67,7 +71,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         if contact.bodyA.node?.name?.range(of:"brick") != nil || contact.bodyB.node?.name?.range(of:"brick") != nil
         {
-            print("You win!")
             if(ball == contact.bodyA)
             {
                 brickHit(brick: contact.bodyB.node! as! SKSpriteNode)
@@ -81,14 +84,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if contact.bodyA.node?.name == "loseZone" || contact.bodyB.node?.name == "loseZone"
         {
-            //make alert
-//            let alert = UIAlertController(coder: "Game Over"), message: nil, preferredStyle: .alert)
-//            let alertAction = UIAlertAction(title: "Reset", style: .default) { (action) in
-//                reset()
-//            }
-//            alert.addAction(alertAction)
-//            present(alert, animated: true, completion: nil)
-           ball.removeFromParent()
+            ball.removeFromParent()
+            makeGameOverMessage()
         }
     }
     
@@ -204,5 +201,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         loseZone.physicsBody = SKPhysicsBody(rectangleOf: loseZone.size)
         loseZone.physicsBody?.isDynamic = false
         addChild(loseZone)
+    }
+    
+    func makeGameOverMessage()
+    {
+        gameOver.text = "Game Over"
+        gameOver.position = CGPoint(x: 0, y: 0)
+        gameOver.fontSize = 40
+        addChild(gameOver)
+    }
+    
+    func makeLevelCounter()
+    {
+        levelLabel.text = "Levels: 3"
+        levelLabel.position = CGPoint(x: frame.minX + 60, y: frame.minY + 20)
+        levelLabel.fontSize = 20
+        addChild(levelLabel)
     }
 }

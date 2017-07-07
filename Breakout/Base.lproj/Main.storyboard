@@ -30,11 +30,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="0.80000000000000004" y="35.532233883058474"/>
         </scene>
-        <!--View Controller-->
+        <!--Title View Controller-->
         <scene sceneID="ssH-yV-JDm">
             <objects>
-                <viewController id="zlW-Sg-13J" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TitleViewController" id="zlW-Sg-13J" customClass="TitleViewController" customModule="Breakout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dxt-J0-NZw"/>
                         <viewControllerLayoutGuide type="bottom" id="9bq-at-Vvq"/>
@@ -86,7 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OEf-3q-caw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-794.39999999999998" y="36.431784107946029"/>
+            <point key="canvasLocation" x="-703" y="37"/>
         </scene>
     </scenes>
     <resources>
