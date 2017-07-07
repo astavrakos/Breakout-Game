@@ -15,9 +15,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var paddle = SKSpriteNode()
     var loseZone = SKSpriteNode()
     var bricks = [SKSpriteNode]()
+    var playing = true
     let gameOver = SKLabelNode(fontNamed: "arcadepix")
-    let levelLabel = SKLabelNode(fontNamed: "arcadepix")
-    var levels = 3
+    let livesLabel = SKLabelNode(fontNamed: "arcadepix")
+    let quit = SKLabelNode(fontNamed: "arcadepix")
+    let tryAgain = SKLabelNode(fontNamed: "arcadepix")
+    var lives = 3
     var numBricks = 0
     
     
@@ -30,7 +33,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         makePaddle()
         layBricks()
         makeLoseZone()
-        makeLevelCounter()
+        makeLivesCounter()
         ball.physicsBody?.isDynamic = true
         ball.physicsBody?.applyImpulse(CGVector(dx: -4, dy: 5))
     }
@@ -84,8 +87,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if contact.bodyA.node?.name == "loseZone" || contact.bodyB.node?.name == "loseZone"
         {
-            ball.removeFromParent()
-            makeGameOverMessage()
+            if lives > 1
+            {
+                ball.removeFromParent()
+                lives -= 1
+                livesLabel.text = "Lives: \(lives)"
+                makeBall()
+                ball.physicsBody?.isDynamic = true
+                ball.physicsBody?.applyImpulse(CGVector(dx: -4, dy: 5))
+            }
+            else
+            {
+                livesLabel.text = "Lives: 0"
+                makeGameOverMessage()
+                ball.removeFromParent()
+                makeQuitMessage()
+                playing = false
+                makeTryAgainMessage()
+                paddle.removeFromParent()
+            }
+           
         }
     }
     
@@ -108,9 +129,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func reset()
     {
+        playing = true
         numBricks = 0
+        lives = 3
         ball.removeFromParent()
         paddle.removeFromParent()
+        gameOver.removeFromParent()
+        tryAgain.removeFromParent()
+        quit.removeFromParent()
         loseZone.removeFromParent()
         bricks = [SKSpriteNode]()
         layBricks()
@@ -208,14 +234,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         gameOver.text = "Game Over"
         gameOver.position = CGPoint(x: 0, y: 0)
         gameOver.fontSize = 40
+        gameOver.color = UIColor.white
         addChild(gameOver)
     }
     
-    func makeLevelCounter()
+    func makeQuitMessage()
     {
-        levelLabel.text = "Levels: 3"
-        levelLabel.position = CGPoint(x: frame.minX + 60, y: frame.minY + 20)
-        levelLabel.fontSize = 20
-        addChild(levelLabel)
+        quit.text = "Quit"
+        quit.position = CGPoint(x: 0, y: -80)
+        quit.fontSize = 20
+        quit.color = UIColor.white
+        addChild(quit)
+    }
+    
+    func makeTryAgainMessage()
+    {
+        tryAgain.text = "Try Again"
+        tryAgain.position = CGPoint(x: 0, y: -40)
+        tryAgain.fontSize = 20
+        tryAgain.color = UIColor.white
+        addChild(tryAgain)
+    }
+    
+    
+    func makeLivesCounter()
+    {
+        livesLabel.text = "Lives: 3"
+        livesLabel.position = CGPoint(x: frame.minX + 60, y: frame.minY + 20)
+        livesLabel.fontSize = 20
+        addChild(livesLabel)
     }
 }
