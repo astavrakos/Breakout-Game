@@ -23,6 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     let youWin = SKLabelNode(fontNamed: "arcadepix")
     var lives = 3
     var numBricks = 0
+    var bricksHit = 0
     
     
     override func didMove(to view: SKView)
@@ -35,8 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         layBricks()
         makeLoseZone()
         makeLivesCounter()
-        ball.physicsBody?.isDynamic = true
-        ball.physicsBody?.applyImpulse(CGVector(dx: -4, dy: 5))
+        moveBall()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -52,8 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 playing = true
                 lives = 3
                 reset()
-                ball.physicsBody?.isDynamic = true
-                ball.physicsBody?.applyImpulse(CGVector(dx: -4, dy: 5))
+                moveBall()
             }
             if quit.frame.contains(touchLocation!)
             {
@@ -80,6 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if(brick.color == UIColor.red)
         {
             brick.removeFromParent()
+            bricksHit += 1
         }
         else if brick.color == UIColor.orange
         {
@@ -98,11 +98,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             if(ball == contact.bodyA)
             {
                 brickHit(brick: contact.bodyB.node! as! SKSpriteNode)
-                
+                checkWin()
             }
             else
             {
                 brickHit(brick: contact.bodyA.node! as! SKSpriteNode)
+                checkWin()
             }
         }
         
@@ -114,8 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 lives -= 1
                 livesLabel.text = "Lives: \(lives)"
                 makeBall()
-                ball.physicsBody?.isDynamic = true
-                ball.physicsBody?.applyImpulse(CGVector(dx: -4, dy: 5))
+                moveBall()
             }
             else
             {
@@ -156,12 +156,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         ball.removeFromParent()
         paddle.removeFromParent()
         loseZone.removeFromParent()
-        livesLabel.text = "Lives: 3" 
+        livesLabel.text = "Lives: 3"
         bricks = [SKSpriteNode]()
         layBricks()
         makeBall()
         makePaddle()
         makeLoseZone()
+        numBricks = 0
+        bricksHit = 0
     }
     
     func makeBall()
@@ -290,5 +292,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         livesLabel.position = CGPoint(x: frame.minX + 60, y: frame.minY + 20)
         livesLabel.fontSize = 20
         addChild(livesLabel)
+    }
+    
+    func moveBall()
+    {
+        ball.physicsBody?.isDynamic = true
+        ball.physicsBody?.applyImpulse(CGVector(dx: 3.5, dy: 5))
+    }
+    
+    func checkWin()
+    {
+        if numBricks == bricksHit
+        {
+            playing = false
+            makeYouWin()
+            ball.removeFromParent()
+            paddle.removeFromParent()
+        }
     }
 }
