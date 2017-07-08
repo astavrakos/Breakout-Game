@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     let livesLabel = SKLabelNode(fontNamed: "arcadepix")
     let quit = SKLabelNode(fontNamed: "arcadepix")
     let tryAgain = SKLabelNode(fontNamed: "arcadepix")
+    let youWin = SKLabelNode(fontNamed: "arcadepix")
     var lives = 3
     var numBricks = 0
     
@@ -39,6 +40,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if !playing
+        {
+            let touch = touches.first
+            let touchLocation = touch?.location(in: self)
+            if tryAgain.frame.contains(touchLocation!)
+            {
+                gameOver.removeFromParent()
+                tryAgain.removeFromParent()
+                quit.removeFromParent()
+                playing = true
+                lives = 3
+                reset()
+                ball.physicsBody?.isDynamic = true
+                ball.physicsBody?.applyImpulse(CGVector(dx: -4, dy: 5))
+            }
+            if quit.frame.contains(touchLocation!)
+            {
+                exit(0)
+            }
+        }
         for touch in touches
         {
             let location = touch.location(in: self)
@@ -58,7 +79,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         if(brick.color == UIColor.red)
         {
-        brick.removeFromParent()
+            brick.removeFromParent()
         }
         else if brick.color == UIColor.orange
         {
@@ -106,7 +127,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 makeTryAgainMessage()
                 paddle.removeFromParent()
             }
-           
+            
         }
     }
     
@@ -129,15 +150,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func reset()
     {
-        playing = true
+        playing = false
         numBricks = 0
         lives = 3
         ball.removeFromParent()
         paddle.removeFromParent()
-        gameOver.removeFromParent()
-        tryAgain.removeFromParent()
-        quit.removeFromParent()
         loseZone.removeFromParent()
+        livesLabel.text = "Lives: 3" 
         bricks = [SKSpriteNode]()
         layBricks()
         makeBall()
@@ -212,9 +231,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             default:
                 color = UIColor.red
             }
-           for col in 1...Int(numWide)
-           {
-            makeBrick(x: frame.minX+(brickWidth+CGFloat(5))*CGFloat(col)-brickWidth/2, y: frame.maxY-(brickHeight+CGFloat(5))*CGFloat(row)-brickHeight/2, color: color, w: brickWidth, h: brickHeight)
+            for col in 1...Int(numWide)
+            {
+                makeBrick(x: frame.minX+(brickWidth+CGFloat(5))*CGFloat(col)-brickWidth/2, y: frame.maxY-(brickHeight+CGFloat(5))*CGFloat(row)-brickHeight/2, color: color, w: brickWidth, h: brickHeight)
             }
         }
     }
@@ -238,13 +257,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(gameOver)
     }
     
-    func makeQuitMessage()
+    func makeYouWin()
     {
-        quit.text = "Quit"
-        quit.position = CGPoint(x: 0, y: -80)
-        quit.fontSize = 20
-        quit.color = UIColor.white
-        addChild(quit)
+        youWin.text = "You Win"
+        youWin.position = CGPoint(x: 0, y: 0)
+        youWin.fontSize = 40
+        youWin.color = UIColor.white
+        addChild(youWin)
     }
     
     func makeTryAgainMessage()
@@ -256,6 +275,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(tryAgain)
     }
     
+    func makeQuitMessage()
+    {
+        quit.text = "Quit"
+        quit.position = CGPoint(x: 0, y: -80)
+        quit.fontSize = 20
+        quit.color = UIColor.white
+        addChild(quit)
+    }
     
     func makeLivesCounter()
     {
