@@ -157,6 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         paddle.removeFromParent()
         loseZone.removeFromParent()
         livesLabel.text = "Lives: 3"
+        youWin.removeFromParent() 
         bricks = [SKSpriteNode]()
         layBricks()
         makeBall()
@@ -218,7 +219,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func layBricks()
     {
-        let numWide = CGFloat(6)
+        let numWide = CGFloat(2)
         let brickWidth = frame.width/numWide - 5/numWide - 5
         let brickHeight = CGFloat(20)
         for row in 1...3
@@ -307,6 +308,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             playing = false
             makeYouWin()
             ball.removeFromParent()
+            makeQuitMessage()
+            makeTryAgainMessage()
             paddle.removeFromParent()
         }
     }
